@@ -7,5 +7,3 @@ import { PrismaService } from './prisma.service';
   exports: [PrismaService],
 })
 export class PrismaModule {}
-
-// npx prisma migrate dev --name init
