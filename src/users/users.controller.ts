@@ -1,4 +1,7 @@
-import { Controller, Get, Param, UseGuards } from '@nestjs/common';
+import { Controller, Get, Param, Req, UseGuards } from '@nestjs/common';
+import { NotFoundException } from '@nestjs/common/exceptions';
+import { Request } from 'express';
+import { NotFoundError } from 'rxjs';
 import { JwtAuthGuard } from 'src/auth/jwt.guard';
 import { UsersService } from './users.service';
 
@@ -8,9 +11,8 @@ export class UsersController {
 
   @UseGuards(JwtAuthGuard)
   @Get(':id')
-  getMyUser(@Param() params: { id: string }) {
-    console.log(params);
-    return this.usersService.getMyUser(params.id);
+  getMyUser(@Param() params: { id: string }, @Req() req: Request) {
+    return this.usersService.getMyUser(params.id, req);
   }
   @Get('')
   getUser() {
